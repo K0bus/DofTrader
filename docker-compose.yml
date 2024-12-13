@@ -14,6 +14,7 @@ services:
     working_dir: /app
     volumes:
       - ./expressJs:/app
+#      - /app/node_modules/
     ports:
       - "3000:3000"
     environment:
@@ -31,7 +32,7 @@ services:
     working_dir: /app
     volumes:
       - ./vueJs:/app
-      - /app/node_modules
+#      - /app/node_modules/
     ports:
       - "8000:8000"
     expose:
