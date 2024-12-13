@@ -10,7 +10,12 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  server: {    // <-- this object is added
+  watch: {
+    usePolling: true,
+  },
+  server: {
+    host: true,
+    strictPort: true,
     port: 8000
   },
   resolve: {
