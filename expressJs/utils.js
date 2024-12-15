@@ -1,10 +1,10 @@
-const readdir = require("fs/promises").readdir;
+import { readdir } from "fs/promises";
 
 const getDirectories = async source =>
     (await readdir(source, { withFileTypes: true }))
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name)
 
-module.exports = {
+export default {
     getDirectories
 }

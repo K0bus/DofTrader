@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router({mergeParams: true});
-const utils = require("../utils");
-const {readdir} = require("node:fs");
+import express from 'express';
+import { readdir } from 'node:fs/promises';
+import * as utils from '../utils.js';
+
+const router = express.Router({ mergeParams: true });
 
 /**
  * @openapi
@@ -75,4 +76,4 @@ router.get('/:version/databases', function(req, res) {
     });
 })
 
-module.exports = router;
+export default router;

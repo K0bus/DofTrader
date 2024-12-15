@@ -1,15 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const router = express.Router({mergeParams: true});
+import express from 'express';
+import {User} from '../db.js';
 
-const pricesSchema = new mongoose.Schema({
-    timestamp: Date,
-    server: String,
-    itemID: Number,
-    price: Number,
-    authorID: Number,
-});
-const Prices = mongoose.model('Prices', pricesSchema);
+const router = express.Router({ mergeParams: true });
 
 /**
  * @openapi
@@ -51,20 +43,14 @@ router.post('/price/insert', function(req, res) {
     const price = req.body.price;
     const authorID = req.body.authorID;
 
-    mongoose.connect('mongodb+srv://test:test@data.hviuj.mongodb.net/?retryWrites=true&w=majority&appName=Data').then(() => {
-        const newPrice = new Prices(
-            {
-                timestamp: new Date(),
-                server: server,
-                itemID: itemID,
-                price: price,
-                authorID: authorID,
-            }
-        );
-        newPrice.save().then(r => {
-            res.end(JSON.stringify(r));
-        });
-    });
+    User.create(
+        {
+            server: server,
+            itemID: itemID,
+            price: price,
+            authorID: authorID
+        }
+    ).then(r => res.end(JSON.stringify(r)));
 });
 
 /**
@@ -97,14 +83,17 @@ router.post('/price/get', function(req, res) {
     const server = req.body.server;
     const itemID = req.body.itemID;
     res.setHeader('Content-Type', 'application/json');
-    mongoose.connect('mongodb+srv://test:test@data.hviuj.mongodb.net/?retryWrites=true&w=majority&appName=Data').then(() => {
-        Prices.find({})
-            .where('server').equals(server)
-            .where('itemID').equals(itemID)
-            .sort({ _id: -1 }).limit(1).then((r) => {
-            res.end(JSON.stringify(r));
-        });
-    });
+    User.findAll(
+        {
+            where: {
+                server: server,
+                itemID: itemID
+            },
+        },
+    ).then(r =>{
+        res.end(JSON.stringify(r));
+    })
+    // TODO: Make PostgreSQL request
 });
 
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
-const express = require('express');
-const fs = require("fs");
-const router = express.Router({mergeParams: true});
+import express from 'express';
+import fs from 'fs';
+const router = express.Router({ mergeParams: true });
 
 /**
  * @openapi
@@ -174,4 +174,4 @@ router.post('/:type', function(req, res) {
     })
 });
 
-module.exports = router;
+export default router;

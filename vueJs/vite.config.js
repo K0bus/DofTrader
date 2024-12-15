@@ -10,14 +10,6 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  watch: {
-    usePolling: true,
-  },
-  server: {
-    host: true,
-    strictPort: true,
-    port: 8000
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

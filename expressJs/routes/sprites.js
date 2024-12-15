@@ -1,7 +1,8 @@
-const express = require('express');
-const fs = require("fs");
-const {pipeline, PassThrough} = require("node:stream");
-const router = express.Router({mergeParams: true});
+import express from 'express';
+import fs from 'fs';
+import { pipeline, PassThrough } from 'node:stream';
+
+const router = express.Router({ mergeParams: true });
 
 /**
  * @openapi
@@ -67,4 +68,4 @@ router.get('/:type/:id', function(req, res) {
     ps.pipe(res) // <---- this makes a trick with stream error handling
 });
 
-module.exports = router;
+export default router;
